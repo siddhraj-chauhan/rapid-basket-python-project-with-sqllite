@@ -1,0 +1,52 @@
+{% extends 'store/main.html' %} {% block content %}
+
+<div style="background-color: #4f868c !important;" class="py-3">
+  <div class="container">
+    <a class="text-white" href="{% url 'store' %}">Collections /</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="box-element">
+      <div class="cart-row">
+        <div style="flex: 2"></div>
+        <div style="flex: 2"><strong>Item</strong></div>
+        <div style="flex: 1"><strong>Price</strong></div>
+        <div style="flex: 1"><strong></strong></div>
+        <div style="flex: 1"><strong></strong></div>
+      </div>
+
+      {% for item in wishlist %}
+      <div class="cart-row">
+        <div style="flex: 2">
+          <img class="row-image" src="{{item.product.imageURL}}" />
+        </div>
+        <div style="flex: 2">
+          <p>{{item.product.title}}</p>
+        </div>
+        <div style="flex: 1">
+          <p>&#8377; {{item.product.price|floatformat:2}}</p>
+        </div>
+        <div style="flex: 1">
+          <a
+            href="{% url 'product_details' item.product.categories.slug item.product.slug item.product.id %}"
+            ><button class="btn btn-primary">View</button></a
+          >
+        </div>
+        <div style="flex: 1">
+          <button
+            data-product="{{item.product.id}}"
+            data-action="remove"
+            class="btn btn-danger update-wishlist"
+          >
+            <i class="fa fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
